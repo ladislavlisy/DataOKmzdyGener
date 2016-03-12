@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
  
 namespace DataOKmzdyGener10
-{
+{  
     class DataSourceGenerator
     {
         const string TAB_INDENT0 = "";
