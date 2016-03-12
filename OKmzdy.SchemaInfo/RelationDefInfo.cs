@@ -11,15 +11,17 @@ namespace OKmzdy.SqlSchemaInfo
 	    private IList<RelationFieldDef> m_DaoRelationField;
 	    public string m_strName;
 	    public string m_strTable;
+	    public string m_strColumn;
 	    public string m_strForeignTable;
 	    public int m_lAttributes;
 	    public int m_nFields;
 
-        public RelationDefInfo(string lpszName, string lpszForeignTable, string lpszRelTable)
+        public RelationDefInfo(string lpszName, string lpszForeignTable, string lpszRelTable, string lpszRelColumn)
         {
             m_DaoRelationField = new List<RelationFieldDef>();
 	        m_strName = lpszName;
 	        m_strTable = lpszRelTable;
+	        m_strColumn = lpszRelColumn;
 	        m_strForeignTable = lpszForeignTable;
 	        m_lAttributes = 0;
 	        m_nFields = 0;
@@ -181,6 +183,10 @@ namespace OKmzdy.SqlSchemaInfo
             m_DaoRelationField.Clear();
         }
 
+        public string CodeFirstEntityName()
+        {
+            return m_strTable.ConvertNameToCamel();
+        }
         public string InfoName()
         {
             return m_strTable + "::" + m_strName;

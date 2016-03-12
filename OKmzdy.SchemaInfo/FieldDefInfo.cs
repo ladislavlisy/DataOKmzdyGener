@@ -8,6 +8,8 @@ namespace OKmzdy.SqlSchemaInfo
 {
     public class FieldDefInfo
     {
+        public const string COLUMN_NAME_AUTOID = "id";
+
         const string NEW_LINE_STR = DBConstants.NEW_LINE_STR;
         const int DB_SINGLE = DBConstants.DB_SINGLE;
         const int DB_TEXT = DBConstants.DB_TEXT;
@@ -72,6 +74,15 @@ namespace OKmzdy.SqlSchemaInfo
 
         public string ColumnName()
         {
+            return m_strName;
+        }
+
+        public string CodefstColumnName()
+        {
+            if (IsAutoIncrement())
+            {
+                return COLUMN_NAME_AUTOID;
+            }
             return m_strName;
         }
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Common;
-using System.Data;
 
 namespace OKmzdy.SqlSchemaInfo
 {
@@ -139,9 +139,44 @@ namespace OKmzdy.SqlSchemaInfo
             this.m_VersDrop = versDrop;
         }
 
+        public bool IsAutoIncrement(string columnName)
+        {
+            FieldDefInfo column = m_TableFields.Where((c) => (c.m_strName.Equals(columnName))).SingleOrDefault();
+            if (column != null)
+            {
+                return column.IsAutoIncrement();
+            }
+            return false;
+        }
+
+        public FieldDefInfo GetAutoIncrementColumn(UInt32 versCreate)
+        {
+            IList<FieldDefInfo> columnList = m_TableFields.Where((c) => (c.IsValidInVersion(versCreate))).ToList();
+
+            FieldDefInfo column = columnList.Where((c) => (c.IsAutoIncrement())).SingleOrDefault();
+
+            return column;
+        }
         public IList<FieldDefInfo> TableColumnsVersion(UInt32 versCreate)
         {
-            return m_TableFields.Where((c) => (c.IsValidInVersion(versCreate))).ToList();
+            IList<FieldDefInfo> columnList = m_TableFields.Where((c) => (c.IsValidInVersion(versCreate))).ToList();
+
+            FieldDefInfo autoIdColumn = GetAutoIncrementColumn(versCreate);
+
+            if (autoIdColumn == null)
+            {
+                autoIdColumn = GenericAutoIdColumn();
+
+                columnList.Insert(0, autoIdColumn);
+            }
+            return columnList;
+        }
+
+        private static FieldDefInfo GenericAutoIdColumn()
+        {
+            FieldDefInfo autoIdColumn = CreateFAUTOInfo("id", DB_LONG);
+
+            return autoIdColumn;
         }
 
         public IList<string> TableColumnsPrimary()
@@ -152,19 +187,55 @@ namespace OKmzdy.SqlSchemaInfo
             }
             return new List<string>();
         }
+        public IList<string> TableColumnsAlternate()
+        {
+            if (m_PKConstraint != null)
+            {
+                if (m_PKConstraint.FieldsCount() > 1)
+                {
+                    //return m_PKConstraint.CreateFieldsNamesArray().Where((c) => !IsAutoIncrement(c)).Select((x) => ClassColumnName(x)).ToList();
+                    return m_PKConstraint.CreateFieldsNamesArray().Select((x) => CodefstClassColumnName(x)).ToList();
+                }
+            }
+            return new List<string>();
+        }
+
+        public IList<string> RelationForeignTables()
+        {
+            if (m_TableRelations != null)
+            {
+                return m_TableRelations.Select((x) => (x.m_strTable)).ToList();
+            }
+            return new List<string>();
+        }
+
+        public IList<string> CodefstTableColumnsPrimary()
+        {
+            return new List<string>() { FieldDefInfo.COLUMN_NAME_AUTOID };
+        }
 
         public string ClassColumnName(FieldDefInfo columnInfo)
         {
             return ClassColumnName(columnInfo.ColumnName());
         }
 
-		public string ClassColumnNameId()
-		{
-			return ClassColumnName("id");
-		}
+        public string CodefstColumnName(FieldDefInfo columnInfo)
+        {
+            return ClassColumnName(columnInfo.CodefstColumnName());
+        }
 
         virtual public string ClassColumnName(string columnName)
         {
+            return columnName;
+        }
+
+        virtual public string CodefstClassColumnName(string columnName)
+        {
+            FieldDefInfo columnInfo = m_TableFields.Where((c) => (c.m_strName.Equals(columnName))).Single();
+            if (columnInfo != null)
+            {
+                return columnInfo.CodefstColumnName();
+            }
             return columnName;
         }
 
@@ -240,7 +311,7 @@ namespace OKmzdy.SqlSchemaInfo
             return relationInfo;
         }
 
-        internal FieldDefInfo CreateFieldInfo(string lpszName, int nType, bool bNullOption, UInt32 versFrom, UInt32 versDrop)
+        internal static FieldDefInfo CreateFieldInfo(string lpszName, int nType, bool bNullOption, UInt32 versFrom, UInt32 versDrop)
         {
             FieldDefInfo fieldInfo = new FieldDefInfo(versFrom, versDrop);
             fieldInfo.m_strName = lpszName;
@@ -276,7 +347,7 @@ namespace OKmzdy.SqlSchemaInfo
             return FieldInsertIdx(fieldInfo, index);
         }
 
-        internal FieldDefInfo CreateFTEXTInfo(string lpszName, int nType, int size, bool bNullOption, UInt32 versFrom, UInt32 versDrop)
+        internal static FieldDefInfo CreateFTEXTInfo(string lpszName, int nType, int size, bool bNullOption, UInt32 versFrom, UInt32 versDrop)
         {
             FieldDefInfo fieldInfo = new FieldDefInfo(versFrom, versDrop);
             fieldInfo.m_strName = lpszName;
@@ -312,7 +383,7 @@ namespace OKmzdy.SqlSchemaInfo
             return FieldInsertIdx(fieldInfo, index);
         }
 
-        internal FieldDefInfo CreateGDATEInfo(string lpszName, int nType, bool bNullOption, UInt32 versFrom = 0, UInt32 versDrop = 9999)
+        internal static FieldDefInfo CreateGDATEInfo(string lpszName, int nType, bool bNullOption, UInt32 versFrom = 0, UInt32 versDrop = 9999)
         {
             FieldDefInfo fieldInfo = new FieldDefInfo(versFrom, versDrop);
 	        fieldInfo.m_strName = lpszName;
@@ -352,7 +423,7 @@ namespace OKmzdy.SqlSchemaInfo
             return FieldInsertIdx(fieldInfo, index);
         }
 
-        internal FieldDefInfo CreateFAUTO(string lpszName, int nType)
+        internal static FieldDefInfo CreateFAUTOInfo(string lpszName, int nType)
         {
             FieldDefInfo fieldInfo = new FieldDefInfo();
 	        fieldInfo.m_strName = lpszName;
@@ -371,6 +442,13 @@ namespace OKmzdy.SqlSchemaInfo
 	        fieldInfo.m_lAttributes = dbFixedField |  dbAutoIncrField | dbUpdatableField;
 		    fieldInfo.m_lSize = FieldSize(nType) ;
 
+            return fieldInfo;
+        }
+
+        internal FieldDefInfo CreateFAUTO(string lpszName, int nType)
+        {
+            FieldDefInfo fieldInfo = CreateFAUTOInfo(lpszName, nType);
+
             return FieldInsertBeg(fieldInfo);
         }
 
@@ -382,14 +460,14 @@ namespace OKmzdy.SqlSchemaInfo
             return IndexAppend(indexInfo);
         }
 
-        internal RelationDefInfo CreateRelation(string lpszName, string lpszRelTable)
+        internal RelationDefInfo CreateRelation(string lpszName, string lpszRelTable, string lpszRelColumn)
         {
-            RelationDefInfo indexInfo = new RelationDefInfo(lpszName, m_strName, lpszRelTable);
+            RelationDefInfo indexInfo = new RelationDefInfo(lpszName, m_strName, lpszRelTable, lpszRelColumn);
 
             return RelationAppend(indexInfo);
         }
 
-        private int FieldSize(int nType)
+        private static int FieldSize(int nType)
         {
             int fieldInfoSize = 0;
             switch (nType)
@@ -428,7 +506,7 @@ namespace OKmzdy.SqlSchemaInfo
             return fieldInfoSize;
         }
 
-        private string FieldDefaultValue(int nType, bool bNullOption)
+        private static string FieldDefaultValue(int nType, bool bNullOption)
         {
             string fieldInfoDefaultValue = "";
             switch (nType)
@@ -569,27 +647,6 @@ namespace OKmzdy.SqlSchemaInfo
             }
 
             return strSQL;
-        }
-
-        private int GetSynonymCount(int dbPlatform, DbConnection conn, string strUsersName, string strObjectName)
-        {
-            if (DBPlatform.IsMsJetType(dbPlatform))
-            {
-                return 0;
-            }
-            else if (DBPlatform.IsMsSQLType(dbPlatform))
-            {
-                return 0;
-            }
-            else if (DBPlatform.IsOracleType(dbPlatform))
-            {
-                return 0;
-            }
-            else if (DBPlatform.IsSQLiteType(dbPlatform))
-            {
-                return 0;
-            }
-            return 0;
         }
 
         private static string DbConvertDataType(int dbPlatform, int nType, int nSize)

@@ -747,15 +747,15 @@ namespace OKmzdy.OKmzdySchemaInfo
 
         public override string SchemaNamespace()
         {
-            return "OKmzdySchemas";
+            return "EasterSchemas";
         }
         public override string ContextName()
         {
-            return "OKMZDY_CONTEXT";
+            return "EASTER_CONTEXT";
         }
         public override string ContextFolder()
         {
-            return "OKmzdy";
+            return "Easter";
         }
     }
 }

@@ -120,9 +120,9 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("rodne_cislo");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("fid_prac", "FIRMA");
+			TableRelation = CreateRelation("fid_prac", "FIRMA", "firma_id");
             TableRelation.AppendForeignField("firma_id", "ffirma_id");
-			TableRelation = CreateRelation("statnar", "UZIV_CISELNIK");
+			TableRelation = CreateRelation("statnar", "UZIV_CISELNIK", "stat_narozeni_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("stat_narozeni", "uzc_kod");
         }
@@ -184,7 +184,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("prech_adr");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("pracid_osd", "PRAC");
+			TableRelation = CreateRelation("pracid_osd", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -252,7 +252,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("firma_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_pojistitel", "PRAC");
+			TableRelation = CreateRelation("prac_pojistitel", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -308,10 +308,10 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("zdravpoj_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("oid_hlas", "ORGANIZACE");
+			TableRelation = CreateRelation("oid_hlas", "ORGANIZACE", "zdravpoj_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("zdravpoj_id", "org_id");
-			TableRelation = CreateRelation("pracid_hlaszp", "PRAC");
+			TableRelation = CreateRelation("pracid_hlaszp", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -357,7 +357,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             PKConstraint.AppendField("cislo");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_pracneprit", "PRAC");
+			TableRelation = CreateRelation("prac_pracneprit", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -414,7 +414,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pracovnik_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("pracid_dan", "PRAC");
+			TableRelation = CreateRelation("pracid_dan", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -489,7 +489,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("org_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("pracid_sraz", "PRAC");
+			TableRelation = CreateRelation("pracid_sraz", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -623,7 +623,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("prackon");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("pracid_ppom", "PRAC");
+			TableRelation = CreateRelation("pracid_ppom", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -677,7 +677,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomid_pdov", "PPOMER");
+			TableRelation = CreateRelation("ppomid_pdov", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -747,7 +747,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomer_ref_dov_rok", "PPOMER");
+			TableRelation = CreateRelation("ppomer_ref_dov_rok", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -824,7 +824,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomid_pmes", "PPOMER");
+			TableRelation = CreateRelation("ppomid_pmes", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -890,7 +890,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomid_psum", "PPOMER");
+			TableRelation = CreateRelation("ppomid_psum", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -947,7 +947,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomid_pozp", "PPOMER");
+			TableRelation = CreateRelation("ppomid_pozp", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -998,14 +998,14 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("firma_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("praxe_ppomer", "PPOMER");
+			TableRelation = CreateRelation("praxe_ppomer", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
-			TableRelation = CreateRelation("praxe_vzdel", "UZIV_CISELNIK");
+			TableRelation = CreateRelation("praxe_vzdel", "UZIV_CISELNIK", "vzdel_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("vzdel_kod", "uzc_kod");
-			TableRelation = CreateRelation("praxe_kraceni", "UZIV_CISELNIK");
+			TableRelation = CreateRelation("praxe_kraceni", "UZIV_CISELNIK", "kraceni_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("kraceni_kod", "uzc_kod");
         }
@@ -1060,14 +1060,14 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pozice_kod");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppsluzba_uzcsluzba", "STRED_CINZAK");
+			TableRelation = CreateRelation("ppsluzba_uzcsluzba", "STRED_CINZAK", "sluzba_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("sluzba_id", "strcinzak_id");
-			TableRelation = CreateRelation("ppom_ppsluzba", "PPOMER");
+			TableRelation = CreateRelation("ppom_ppsluzba", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
-			TableRelation = CreateRelation("ppsluzba_uzcpozice", "UZIV_CISELNIK");
+			TableRelation = CreateRelation("ppsluzba_uzcpozice", "UZIV_CISELNIK", "pozice_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pozice_kod", "uzc_kod");
         }
@@ -1117,16 +1117,16 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("vzdelani_kod");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("pvzdel_uzcsluzba", "STRED_CINZAK");
+			TableRelation = CreateRelation("pvzdel_uzcsluzba", "STRED_CINZAK", "sluzba_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("sluzba_id", "strcinzak_id");
-			TableRelation = CreateRelation("prac_pvzdelavani", "PRAC");
+			TableRelation = CreateRelation("prac_pvzdelavani", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
-			TableRelation = CreateRelation("pvzdel_uzcpozice", "UZIV_CISELNIK");
+			TableRelation = CreateRelation("pvzdel_uzcpozice", "UZIV_CISELNIK", "pozice_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pozice_kod", "uzc_kod");
-			TableRelation = CreateRelation("pvzdel_uzcvzdel", "UZIV_CISELNIK");
+			TableRelation = CreateRelation("pvzdel_uzcvzdel", "UZIV_CISELNIK", "vzdelani_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("vzdelani_kod", "uzc_kod");
         }
@@ -1163,7 +1163,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             PKConstraint.AppendField("mesic");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_prijmyssp", "PRAC");
+			TableRelation = CreateRelation("prac_prijmyssp", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -1246,10 +1246,10 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("rezidadr_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("pracid_prij", "PRAC");
+			TableRelation = CreateRelation("pracid_prij", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
-			TableRelation = CreateRelation("rezid_stat", "UZIV_CISELNIK");
+			TableRelation = CreateRelation("rezid_stat", "UZIV_CISELNIK", "stat_rezident_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("stat_rezident", "uzc_kod");
         }
@@ -1300,7 +1300,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pracovnik_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prij_prohl", "PRIJMY");
+			TableRelation = CreateRelation("prij_prohl", "PRIJMY", "prijmy_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("rok", "rok");
@@ -1353,7 +1353,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pracovnik_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("pracid_rod", "PRAC");
+			TableRelation = CreateRelation("pracid_rod", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -1404,7 +1404,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             PKConstraint.AppendField("cislo_platce");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_prijmymes", "PRAC");
+			TableRelation = CreateRelation("prac_prijmymes", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -1464,7 +1464,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomid_mzda", "PPOMER");
+			TableRelation = CreateRelation("ppomid_mzda", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -1541,7 +1541,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomid_nepr", "PPOMER");
+			TableRelation = CreateRelation("ppomid_nepr", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -1591,7 +1591,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("cislo_pp");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("ppomid_uvaz", "PPOMER");
+			TableRelation = CreateRelation("ppomid_uvaz", "PPOMER", "ppomer_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("cislo_pp", "cislo_pp");
@@ -1633,7 +1633,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pracovnik_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_uziv_data_ppomer", "PRAC");
+			TableRelation = CreateRelation("prac_uziv_data_ppomer", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
         }
@@ -1672,7 +1672,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("uzivatel_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("uziv_ref_reldp_davka", "UZIVATEL");
+			TableRelation = CreateRelation("uziv_ref_reldp_davka", "UZIVATEL", "uzivatel_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("uzivatel_id", "uuzivatel_id");
         }
@@ -1735,7 +1735,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             PKConstraint.AppendField("eldppgn");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_reldp_listek_data", "PRAC_RELDP_LISTEK");
+			TableRelation = CreateRelation("prac_reldp_listek_data", "PRAC_RELDP_LISTEK", "listek_reldp_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");
             TableRelation.AppendForeignField("listek_reldp_id", "llistek_reldp_id");
@@ -1795,7 +1795,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pracovnik_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("uziv_reldp_davka_listek", "UZIV_RELDP_DAVKA");
+			TableRelation = CreateRelation("uziv_reldp_davka_listek", "UZIV_RELDP_DAVKA", "davka_reldp_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("davka_reldp_id", "ddavka_reldp_id");
             TableRelation.AppendForeignField("uzivatel_id", "uzivatel_id");
@@ -1855,10 +1855,10 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pracovnik_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_ma_reldp_prac", "PRAC");
+			TableRelation = CreateRelation("prac_ma_reldp_prac", "PRAC", "pracovnik_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("pracovnik_id", "ppracovnik_id");
-			TableRelation = CreateRelation("uziv_reldp_prac", "UZIV_RELDP_DAVKA");
+			TableRelation = CreateRelation("uziv_reldp_prac", "UZIV_RELDP_DAVKA", "uziv_data_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("davka_reldp_id", "ddavka_reldp_id");
             TableRelation.AppendForeignField("uzivatel_id", "uzivatel_id");
@@ -1962,7 +1962,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesPrac
             TableIndex.AppendField("pracovnik_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("prac_reldp_prac_poj", "PRAC_RELDP09_DATA_PRAC");
+			TableRelation = CreateRelation("prac_reldp_prac_poj", "PRAC_RELDP09_DATA_PRAC", "data_prac_id");
             TableRelation.AppendForeignField("firma_id", "firma_id");
             TableRelation.AppendForeignField("uzivatel_id", "uzivatel_id");
             TableRelation.AppendForeignField("pracovnik_id", "pracovnik_id");

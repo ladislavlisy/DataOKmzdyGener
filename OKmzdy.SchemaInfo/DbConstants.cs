@@ -55,7 +55,7 @@ namespace OKmzdy.SqlSchemaInfo
 
     public static class DBConstants
     {
-        public static readonly char[] TRIM_CHARS = { '\n', ' ', ',' };
+        public static readonly char[] TRIM_CHARS = { '\r', '\n', '\t', ' ', ',' };
         public static readonly char[] SPLIT_CHARS = { '\n' };
         public static readonly string SPLIT_STRC = "\n";
 

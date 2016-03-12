@@ -32,7 +32,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesDataImport
             PKConstraint.AppendField("pnr");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("fir_imppnr", "FIRMA");
+			TableRelation = CreateRelation("fir_imppnr", "FIRMA", "firma_id");
             TableRelation.AppendForeignField("firma_id", "ffirma_id");
 
         }
@@ -66,7 +66,7 @@ namespace OKmzdy.OKmzdySchemaInfo.TablesDataImport
             PKConstraint.AppendField("davka_id");
 
             RelationDefInfo TableRelation = null;
-			TableRelation = CreateRelation("fir_impdavka", "FIRMA");
+			TableRelation = CreateRelation("fir_impdavka", "FIRMA", "firma_id");
             TableRelation.AppendForeignField("firma_id", "ffirma_id");
         }
 

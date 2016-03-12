@@ -53,6 +53,10 @@ namespace OKmzdy.SqlSchemaInfo
             return strNames.ToArray();
         }
 
+        public int FieldsCount()
+        {
+            return m_nFields;
+        }
         internal string AddConstraintSQL(int dbPlatform)
         {
             string sqlCommand = "";
