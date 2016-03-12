@@ -39,9 +39,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\OKmzdy.SqlSchemaInfo\OKmzdy.SqlSchemaInfo.csproj">
-      <Project>{EA1B8697-307D-46A7-B0E0-55F079DCF132}</Project>
-      <Name>OKmzdy.SqlSchemaInfo</Name>
+    <ProjectReference Include="..\OKmzdy.SchemaInfo\OKmzdy.SchemaInfo.csproj">
+      <Project>{AE43C498-455B-4D17-8964-15B1D76635F5}</Project>
+      <Name>OKmzdy.SchemaInfo</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

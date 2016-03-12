@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE43C498-455B-4D17-8964-15B1D76635F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>OKmzdy.SchemaInfo</RootNamespace>
+    <AssemblyName>OKmzdy.SchemaInfo</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BaseSchemaManager.cs" />
+    <Compile Include="TableDefInfo.cs" />
+    <Compile Include="DbConstants.cs" />
+    <Compile Include="FieldDefInfo.cs" />
+    <Compile Include="StringRubyExtension.cs" />
+    <Compile Include="IndexDefInfo.cs" />
+    <Compile Include="IndexFieldDefInfo.cs" />
+    <Compile Include="RelationDefInfo.cs" />
+    <Compile Include="RelationFieldDef.cs" />
+    <Compile Include="OKmzdySchemaManager.cs" />
+    <Compile Include="SchemaOKmzdy\TablesDataImport\TablesDataImportInfo.cs" />
+    <Compile Include="SchemaOKmzdy\TablesDataStav\TablesDataStavInfo.cs" />
+    <Compile Include="SchemaOKmzdy\TablesFirma\TablesFirmaInfo.cs" />
+    <Compile Include="SchemaOKmzdy\TablesKonfig\TablesKonfigInfo.cs" />
+    <Compile Include="SchemaOKmzdy\TablesPrac\TablesPracInfo.cs" />
+    <Compile Include="SchemaOKmzdy\TablesSestavy\TablesSestavyInfo.cs" />
+    <Compile Include="SchemaOKmzdy\TablesZSestavy\TablesZSestavyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="SchemaOKmzdy\" />
+  </ItemGroup>
+</Project>
